@@ -1,0 +1,16 @@
+[
+  {
+    "id": "6fed88f2-cebf-4de8-9c8c-5b756b7d4531",
+    "newsHeader": "second News header",
+    "newsContent": "second News content",
+    "image": null,
+    "createdAt": "2024-04-06T08:20:16.080Z"
+  },
+  {
+    "id": "b9610517-ef22-444f-bb29-d92b2e00ae92",
+    "newsHeader": "four News header",
+    "newsContent": "four News content",
+    "image": null,
+    "createdAt": "2024-04-06T08:47:17.374Z"
+  }
+]

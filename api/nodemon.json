@@ -1,0 +1,4 @@
+{
+  "ignore": ["newsDb.json", "commentsDb.json", "node_modules"],
+  "ext": ".ts"
+}
