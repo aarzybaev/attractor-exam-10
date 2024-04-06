@@ -13,7 +13,7 @@ const AppToolbar = () => {
     <AppBar position="sticky" sx={{mb: 2}}>
       <Toolbar>
         <Typography variant="h6" component="div">
-          <LogoLink to="/">Home</LogoLink>
+          <LogoLink to="/">News</LogoLink>
         </Typography>
       </Toolbar>
     </AppBar>
