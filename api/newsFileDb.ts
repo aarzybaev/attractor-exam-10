@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import {News, NewsApi, NewsApiWoNewsContent} from "./types";
 import crypto from "crypto";
+import config from "./config";
 
 const filename = './newsDb.json';
 let data: NewsApi[] = [];
@@ -35,7 +36,11 @@ const newsFileDb = {
     async removeItem(id: string) {
         const index = data.findIndex(item => item.id === id);
         if (index === -1) return false;
+        const fileName = data[index].image;
         data.splice(index, 1);
+        if (filename) {
+            await this.deleteFile(config.publicPath + '/' + fileName);
+        }
         await this.save();
         return true;
     },
@@ -46,6 +51,14 @@ const newsFileDb = {
 
     async isExistID(id: string) {
         return !!data.find(item => item.id === id);
+    },
+
+    async  deleteFile(filePath: string) {
+        try {
+            await fs.unlink(filePath);
+        } catch (err) {
+            console.error(err);
+        }
     }
 };
 

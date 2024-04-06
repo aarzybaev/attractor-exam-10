@@ -1,4 +1,5 @@
-import express from 'express';
+import express from "express";
+import dayjs from "dayjs";
 import {News} from "../types";
 import newsFileDb from "../newsFileDb";
 import {imagesUpload} from "../multer";
@@ -8,7 +9,9 @@ const newsRouter = express.Router();
 newsRouter.get('/', async (req, res) => {
     try {
         const news = await newsFileDb.getItems();
-        return res.json(news);
+        const sortedNews = news.sort((a, b) =>
+            dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix());
+        return res.json(sortedNews);
     } catch (e) {
         console.error(e);
     }
