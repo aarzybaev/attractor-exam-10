@@ -1,6 +1,3 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axiosApi from './axiosApi.ts';
-
 export interface NewsApi {
   id: string;
   newsHeader: string;
@@ -32,10 +29,3 @@ export interface CommentsFormMutation {
   commentText: string;
 }
 
-// export const fetchComments = createAsyncThunk<CommentsApi[]>(
-//   'comments/fetchAll',
-//   async () => {
-//     const {data: comments} = await axiosApi.get<CommentsApi[]>('/news');
-//     return comments;
-//   }
-// );
