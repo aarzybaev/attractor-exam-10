@@ -1,27 +1,25 @@
 import { Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import { MessageMutation } from '../../../types';
+import { NewsFormMutation } from '../../../types';
 import FileInput from '../../../components/UI/FileInput/FileInput.tsx';
+import { createNews } from '../newsThunks.ts';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks.ts';
+import { selectNewsCreating } from '../newsSlice.ts';
 
 
-interface Props {
-  onSubmit: (mutation: MessageMutation) => void;
-  Loading: boolean;
-}
-
-const initialState: MessageMutation = {
-  author: '',
-  message: '',
+const initialState: NewsFormMutation = {
+  newsHeader: '',
+  newsContent: '',
   image: null
 };
-const MessageForm: React.FC<Props> = ({onSubmit, Loading}) => {
+const NewsForm = () => {
+  const [state, setState] = useState<NewsFormMutation>(initialState);
+  const dispatch = useAppDispatch();
+  const Loading = useAppSelector(selectNewsCreating);
 
-
-
-  const [state, setState] = useState<MessageMutation>(initialState);
-  const submitFormHandler = (e: React.FormEvent) => {
+  const submitFormHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(state);
+    await dispatch(createNews(state));
     setState(initialState);
   };
 
@@ -48,20 +46,21 @@ const MessageForm: React.FC<Props> = ({onSubmit, Loading}) => {
       <Grid container direction="column" spacing={2}>
         <Grid item xs>
           <TextField
-            id="author" label="Author"
-            value={state.author}
+            id="newsHeader" label="New header"
+            value={state.newsHeader}
             onChange={inputChangeHandler}
-            name="author"
+            name="newsHeader"
+            required
           />
         </Grid>
         <Grid item xs>
           <TextField
-            id="message" label="Message"
-            value={state.message}
+            id="newsContent" label="News content"
+            value={state.newsContent}
             onChange={inputChangeHandler}
-            name="message"
+            name="newsContent"
             multiline={true}
-            rows={3}
+            rows={5}
             required
           />
         </Grid>
@@ -78,7 +77,8 @@ const MessageForm: React.FC<Props> = ({onSubmit, Loading}) => {
             color="primary"
             variant="contained"
             disabled={Loading}
-          >Create
+          >
+            Save
           </Button>
         </Grid>
       </Grid>
@@ -86,4 +86,4 @@ const MessageForm: React.FC<Props> = ({onSubmit, Loading}) => {
   );
 };
 
-export default MessageForm;
+export default NewsForm;
